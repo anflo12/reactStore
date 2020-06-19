@@ -5,19 +5,19 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
-
+import {createDrawerNavigator} from '@react-navigation/drawer';
 // Import navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import React from 'react';
 import 'react-native-gesture-handler';
-
+import Categories from './components/Categories';
+import CustomDrawer from './components/CustomDrawer';
+import GenericList from './components/GenericList';
 //import Screens
 import LoginScreen from './screens/auth/LoginScreen';
 import RecoveryPassword from './screens/auth/RecoveryPassword';
 import RegisterScreen from './screens/auth/RegisterScreen';
-import CustomDrawer from './components/CustomDrawer';
 import HomeScreen from './screens/HomeScreen';
 
 const Login = createStackNavigator();
@@ -50,6 +50,15 @@ const LoginStack = () => {
           headerTintColor: 'white',
         }}
       />
+
+      <Login.Screen
+        name="home"
+        component={HomeScreen}
+        options={{
+          headerTitle: 'Inicio',
+          headerTintColor: 'white',
+        }}
+      />
     </Login.Navigator>
   );
 };
@@ -66,6 +75,12 @@ const HomeStack = () => {
         component={HomeScreen}
         options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
+
+      <Home.Screen
+        name="products"
+        component={GenericList}
+        options={{headerTitle: 'Celulares', headerTintColor: 'white'}}
+      />
     </Home.Navigator>
   );
 };
@@ -77,6 +92,8 @@ const App = () => {
         overlayColor="transparent"
         drawerStyle={{marginTop: 57, width: 230}}>
         <Drawer.Screen name="login" component={LoginStack} />
+        <Drawer.Screen name="categories" component={Categories} />
+        <Drawer.Screen name="products" component={GenericList} />
 
         <Drawer.Screen name="home" component={HomeStack} />
       </Drawer.Navigator>

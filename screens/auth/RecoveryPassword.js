@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text,  StyleSheet} from 'react-native';
-import {Input, Card, Button,Image} from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { Button, Card, Image, Input } from 'react-native-elements';
 
 export default function RecoveryPassword() {
   return (

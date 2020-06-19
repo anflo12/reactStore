@@ -1,37 +1,42 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View,CheckBox} from 'react-native';
-import {Button, Card, Input, Image} from 'react-native-elements';
+import {CheckBox, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Card, Image, Input} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
+import {auth, firestore} from '../../config/firebaseConfig';
 
 export default function LoginScreen({navigation}) {
   const [icon, setIcon] = useState('eye-slash');
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setLoading] = useState(false);
-const [isSelected, setSelected] = useState(false)
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [isSelected, setSelected] = useState(false);
   const _changeIcon = () => {
     icon == 'eye-slash'
       ? (setIcon('eye'), setHidePassword(false))
       : (setIcon('eye-slash'), setHidePassword(true));
   };
 
-  const onpressloading = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+  const checking = () => {
+    if (isSelected) {
+      setSelected(false);
+    } else {
+      setSelected(true);
+    }
   };
-
-
-  const checking=()=>{
-      if (isSelected) {
-        setSelected(false)
-      }else{
-        setSelected(true)
-      }
-  }
-
+  const onPressLogin = () => {
+    auth
+      .signInWithEmailAndPassword(Email, Password)
+      .then(() => {
+        alert('bienvenidos');
+        navigation.navigate('home')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <KeyboardAwareScrollView>
@@ -46,32 +51,29 @@ const [isSelected, setSelected] = useState(false)
             labelStyle={{color: colors.secondary}}
             inputStyle={{color: colors.secondary}}
             placeholder="example@correo.com"
+            onChangeText={(value) => setEmail(value)}
           />
           <Input
             label="Contraseña"
             labelStyle={{color: colors.secondary}}
-            inputStyle={{marginBottom:0}}
+            inputStyle={{marginBottom: 0}}
             secureTextEntry={hidePassword}
             rightIcon={
               <Icon name={icon} size={20} onPress={() => _changeIcon()} />
             }
+            onChangeText={(value)=>setPassword(value)}
           />
-          
-          <View style={{flexDirection:'row', marginBottom:10}}>
-          <CheckBox
-          value={isSelected}
-          onValueChange={checking}
-          
-        />
-        <Text style={{marginTop:5}}>Recordarme</Text>
+
+          <View style={{flexDirection: 'row', marginBottom: 10}}>
+            <CheckBox value={isSelected} onValueChange={checking} />
+            <Text style={{marginTop: 5}}>Recordarme</Text>
           </View>
-    
- 
+
           <Button
             title="Ingresar"
             buttonStyle={{backgroundColor: colors.primary}}
             loading={loading}
-            onPress={() => onpressloading()}
+            onPress={() => onPressLogin()}
           />
 
           <Text style={styles.divider}>____________ O ____________</Text>

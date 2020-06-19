@@ -1,10 +1,11 @@
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-import {Image} from 'react-native-elements';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../assets/colors';
-import CategoriesComponent from './CategoriesComponent';
+import Categories from './Categories';
+
 export default function CustomDrawer(props) {
   const [Token, setToken] = useState(false);
   return (
@@ -36,7 +37,7 @@ export default function CustomDrawer(props) {
           }}
         />
 
-        <CategoriesComponent />
+        <Categories/>
       </DrawerContentScrollView>
       {Token ? (
         <DrawerItem
