@@ -4,7 +4,8 @@ import {Button, Card, Image, Input} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
-import {auth, firestore} from '../../config/firebaseConfig';
+import FIREBASE from '../../config/firebaseConfig';
+
 
 export default function LoginScreen({navigation}) {
   const [icon, setIcon] = useState('eye-slash');
@@ -27,7 +28,10 @@ export default function LoginScreen({navigation}) {
     }
   };
   const onPressLogin = () => {
-    auth
+    
+    
+    FIREBASE.
+    auth()
       .signInWithEmailAndPassword(Email, Password)
       .then(() => {
         alert('bienvenidos');

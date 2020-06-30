@@ -1,5 +1,7 @@
-import * as firebase from 'firebase';
-import 'firebase/firebase-firestore'
+import firebase from 'firebase';
+import 'firebase/firebase-firestore';
+
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCsixMEJxBR8yJMp4rGQjw9rVYGMZxwcbA',
   authDomain: 'react-store-989fb.firebaseapp.com',
@@ -10,9 +12,6 @@ const firebaseConfig = {
   appId: '1:365470919849:web:102f675199484e1424cdb8',
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+ const FIREBASE = firebase.initializeApp(firebaseConfig);
 
-
-export const auth = firebase.auth()
-
-export const firestore =  firebase.firestore()
+ export default FIREBASE

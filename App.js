@@ -19,9 +19,11 @@ import LoginScreen from './screens/auth/LoginScreen';
 import RecoveryPassword from './screens/auth/RecoveryPassword';
 import RegisterScreen from './screens/auth/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/profile/ProfileScreen';
 
 const Login = createStackNavigator();
 const Home = createStackNavigator();
+const Profile = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 const LoginStack = () => {
@@ -84,6 +86,28 @@ const HomeStack = () => {
     </Home.Navigator>
   );
 };
+
+const ProfileStack =()=>{
+  return(
+    <Profile.Navigator
+    screenOptions={{
+      headerStyle: {backgroundColor: '#FFA726'},
+      headerTitleAlign: 'left',
+    }}>
+    <Profile.Screen
+      name="profile"
+      component={HomeScreen}
+      options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+    />
+
+    <Profile.Screen
+      name="products"
+      component={GenericList}
+      options={{headerTitle: 'Celulares', headerTintColor: 'white'}}
+    />
+  </Profile.Navigator>
+  )
+}
 const App = () => {
   return (
     <NavigationContainer>
@@ -94,7 +118,7 @@ const App = () => {
         <Drawer.Screen name="login" component={LoginStack} />
         <Drawer.Screen name="categories" component={Categories} />
         <Drawer.Screen name="products" component={GenericList} />
-
+        <Drawer.Screen name="profile" component={ProfileScreen} />
         <Drawer.Screen name="home" component={HomeStack} />
       </Drawer.Navigator>
     </NavigationContainer>
