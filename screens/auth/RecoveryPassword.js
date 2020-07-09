@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {Button, Card, Image, Input} from 'react-native-elements';
-import FIREBASE from '../../config/firebaseConfig';
+import { auth } from '../../config/firebaseConfig';
 
 export default function RecoveryPassword() {
   const [Email, setEmail] = useState('');
   const RecoveryPassword = () => {
-    FIREBASE.auth
+    auth
       .sendPasswordResetEmail(emailAddress)
       .then(function () {
         Alert.alert(

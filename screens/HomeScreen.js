@@ -74,7 +74,7 @@ export default function HomeScreen({navigation}) {
   const width = Dimensions.get('screen').width;
   const _body = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("products", { id: 1 })}>
+      <TouchableOpacity onPress={() => navigation.navigate("products", { id: '001' })}>
         <ImageBackground
           source={{uri: item.image}}
           style={{width: '101%', height: 165}}>

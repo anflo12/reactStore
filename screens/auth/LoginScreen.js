@@ -1,41 +1,31 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {CheckBox, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, Card, Image, Input} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import colors from '../../assets/colors';
-import FIREBASE from '../../config/firebaseConfig';
+import AsyncStorage from '@react-native-community/async-storage';
 
+import colors from '../../assets/colors';
+import FIREBASE, {auth} from '../../config/firebaseConfig';
 
 export default function LoginScreen({navigation}) {
-  const [icon, setIcon] = useState('eye-slash');
+  const [icon, setIcon] = useState('eye');
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
-  const [isSelected, setSelected] = useState(false);
   const _changeIcon = () => {
-    icon == 'eye-slash'
-      ? (setIcon('eye'), setHidePassword(false))
-      : (setIcon('eye-slash'), setHidePassword(true));
+    icon == 'eye'
+      ? (setIcon('eye-slash'), setHidePassword(false))
+      : (setIcon('eye'), setHidePassword(true));
   };
 
-  const checking = () => {
-    if (isSelected) {
-      setSelected(false);
-    } else {
-      setSelected(true);
-    }
-  };
-  const onPressLogin = () => {
-    
-    
-    FIREBASE.
-    auth()
+  const onPressLogin = async () => {
+    auth
       .signInWithEmailAndPassword(Email, Password)
       .then(() => {
         alert('bienvenidos');
-        navigation.navigate('home')
+        navigation.navigate('home');
       })
       .catch((error) => {
         console.log(error);
@@ -65,13 +55,8 @@ export default function LoginScreen({navigation}) {
             rightIcon={
               <Icon name={icon} size={20} onPress={() => _changeIcon()} />
             }
-            onChangeText={(value)=>setPassword(value)}
+            onChangeText={(value) => setPassword(value)}
           />
-
-          <View style={{flexDirection: 'row', marginBottom: 10}}>
-            <CheckBox value={isSelected} onValueChange={checking} />
-            <Text style={{marginTop: 5}}>Recordarme</Text>
-          </View>
 
           <Button
             title="Ingresar"

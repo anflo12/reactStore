@@ -5,7 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
-import FIREBASE from '../../config/firebaseConfig';
+import FIREBASE, {auth, db} from '../../config/firebaseConfig';
 
 export default function RegisterScreen({navigation}) {
   const [icon, setIcon] = useState('eye-slash');
@@ -24,14 +24,12 @@ export default function RegisterScreen({navigation}) {
   };
 
   const addUser = (id) => {
-    FIREBASE.firestore()
-      .collection('users')
+    db.collection('users')
       .doc(id)
       .set({
         id: id,
         name: Name,
         email: Email,
-
         phone: Phone,
       })
       .then(() => {
@@ -39,9 +37,12 @@ export default function RegisterScreen({navigation}) {
       });
   };
   const onpresRegister = () => {
-    FIREBASE.auth()
+    auth
       .createUserWithEmailAndPassword(Email.trim(), Password.trim())
-      .then(() => {})
+      .then(() => {
+        addUser(auth.currentUser.uid);
+        navigation.navigate('home');
+      })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           alert('That email address is already in use!');
@@ -53,8 +54,6 @@ export default function RegisterScreen({navigation}) {
 
         console.error(error);
       });
-
-    addUser(FIREBASE.auth().currentUser.uid);
   };
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>

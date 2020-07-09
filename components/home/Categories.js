@@ -1,13 +1,28 @@
-import React from 'react';
-import {List} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const data = [
-  {name: 'Celulares', icon: 'mobile-alt'},
-  {name: 'Computadores', icon: 'desktop'},
-];
+import { db } from '../../config/firebaseConfig';
 
 export default function Categories({navigation}) {
+  const [Categories, setCategories] = useState([]);
+  useEffect(() => {
+    changeCategories();
+  }, []);
+
+  const changeCategories = async() => {
+   
+
+    db.collection('categories').onSnapshot((querySnapshot) => {
+      const docs = [];
+
+      querySnapshot.forEach((doc) => {
+        docs.push(doc.data());
+      });
+      setCategories(docs);  
+    });
+
+   
+  };
   return (
     <List.Accordion
       title="Categorias"
@@ -22,9 +37,10 @@ export default function Categories({navigation}) {
           color={'black'}
         />
       )}>
-      {data.map((category) => {
+      {Categories.map((category) => {
         return (
           <List.Item
+            key={category.id}
             title={category.name}
             style={{marginLeft: 20, padding: 5}}
             onPress={() => navigation.navigate('products', {id: 1})}
