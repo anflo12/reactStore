@@ -1,12 +1,12 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 // Import navigation
-import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
 import CustomDrawer from './components/CustomDrawer';
+import { auth } from './config/firebaseConfig';
 import Auth from './navigation/AuthNavigation';
 import MainStack from './navigation/MainNavigation';
-import {auth} from './config/firebaseConfig';
 
 const Drawer = createDrawerNavigator();
 const App = () => {

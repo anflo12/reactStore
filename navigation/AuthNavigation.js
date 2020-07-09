@@ -15,7 +15,7 @@ function Auth() {
         headerStyle: {backgroundColor: '#FFA726'},
         headerTitleAlign: 'left',
       }}
-      >
+      initialRouteName="login">
       <auth.Screen
         name="login"
         component={LoginScreen}

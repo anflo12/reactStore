@@ -3,11 +3,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import GenericList from '../components/GenericList';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import ProductsScreen from '../screens/products/ProductsScreen';
 
 const Home = createStackNavigator();
 const Profile = createStackNavigator();
 
 const Main = createStackNavigator();
+const Products = createStackNavigator();
+
 const HomeStack = () => {
   return (
     <Home.Navigator
@@ -38,7 +41,7 @@ const ProfileStack = () => {
         headerTitleAlign: 'left',
       }}>
       <Profile.Screen
-        name="profile"
+        name="Perfil"
         component={ProfileScreen}
         options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
@@ -46,6 +49,21 @@ const ProfileStack = () => {
   );
 };
 
+const ProductsStack = () => {
+  return(
+    <Products.Navigator
+    screenOptions={{
+      headerStyle: {backgroundColor: '#FFA726'},
+      headerTitleAlign: 'left',
+    }}>
+    <Products.Screen
+      name="Products"
+      component={ProductsScreen}
+      options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+    />
+  </Products.Navigator>
+  )
+};
 const MainStack = () => {
   return (
     <Main.Navigator
@@ -62,6 +80,12 @@ const MainStack = () => {
       <Main.Screen
         name="profile"
         component={ProfileStack}
+        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+      />
+
+      <Main.Screen
+        name="products"
+        component={ProductsStack}
         options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
     </Main.Navigator>

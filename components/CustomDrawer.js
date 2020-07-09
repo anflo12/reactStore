@@ -80,7 +80,7 @@ export default function CustomDrawer(props) {
               <Icon name="user-alt" color={color} size={20} />
             )}
             label="Perfil"
-            onPress={() => signOut()}
+            onPress={() => {}}
           />
           <DrawerItem
             style={{top: 5}}
