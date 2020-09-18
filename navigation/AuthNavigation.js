@@ -12,7 +12,7 @@ function Auth() {
   return (
     <auth.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: '#FFA726'},
+        headerStyle: {backgroundColor:colors.header},
         headerTitleAlign: 'left',
       }}
       initialRouteName="login">

@@ -2,18 +2,16 @@ import React, {useState} from 'react';
 import {
   Dimensions,
   FlatList,
-  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {Image} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
-import Carousel from 'react-native-snap-carousel';
 import colors from '../assets/colors';
-import OffersItems from '../components/home/OffersItems';
+import GenericList from '../components/itemsProducts/GenericList';
 
 export default function HomeScreen({navigation}) {
   const [Images, setImages] = useState([
@@ -48,26 +46,26 @@ export default function HomeScreen({navigation}) {
     {
       name: 'IPHONE 7 PLUS',
       image:
-        'https://www.cupononline.co/206-large_default/iphone-7-plus-32g.jpg',
+        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
       price: 120000,
     },
     {
       name: 'IPHONE 7 PLUS',
       image:
-        'https://www.cupononline.co/206-large_default/iphone-7-plus-32g.jpg',
+        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
       price: 120000,
     },
     {
       name: 'IPHONE 7 PLUS',
       image:
-        'https://www.cupononline.co/206-large_default/iphone-7-plus-32g.jpg',
+        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
       price: 120000,
     },
 
     {
       name: 'IPHONE 7 PLUS',
       image:
-        'https://www.cupononline.co/206-large_default/iphone-7-plus-32g.jpg',
+        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
       price: 120000,
     },
   ];
@@ -81,11 +79,12 @@ export default function HomeScreen({navigation}) {
           style={{
             flexDirection: 'column',
             alignItems: 'center',
-            marginHorizontal: 10,
+            marginHorizontal: 8,
+          
           }}>
           <Image
             source={{uri: item.image}}
-            style={{width: 105, height: 105, borderRadius: 60}}
+            style={{width: 110, height: 110, borderRadius: 60}}
           />
           <Text style={styles.textCategories}>{item.name}</Text>
         </View>
@@ -117,14 +116,7 @@ export default function HomeScreen({navigation}) {
         />
         <Text style={styles.title2}>Productos en oferta</Text>
 
-        <FlatList
-          data={data}
-          numColumns={2}
-          renderItem={({item, index}) => (
-            <OffersItems item={item} index={index} />
-          )}
-          keyExtractor={(item, index) => index + ''}
-        />
+        <GenericList data={data} />
       </ScrollView>
     </View>
   );
@@ -138,14 +130,19 @@ const styles = StyleSheet.create({
     marginTop: '8%',
     marginBottom: '4%',
     marginLeft: 8,
+    textDecorationLine: 'underline',
   },
 
   title2: {
     fontSize: 22,
     fontWeight: 'bold',
     color: colors.secondary,
-    marginTop: 40,
+    marginTop: 30,
+    marginBottom:10,
     marginLeft: 8,
+    textDecorationLine: 'underline',
+    
+    
   },
   containerCategories: {
     position: 'absolute',

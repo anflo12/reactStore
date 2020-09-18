@@ -1,10 +1,11 @@
+import auth from '@react-native-firebase/auth';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import colors from '../assets/colors';
-import  auth  from '@react-native-firebase/auth';
-import Categories from './home/Categories';
+import colors from '../../assets/colors';
+import Categories from './Categoriesitems';
+
 
 export default function CustomDrawer(props) {
   const [isLogin, setIslogin] = useState(true);
@@ -31,7 +32,7 @@ export default function CustomDrawer(props) {
   }
   
   const signOut = () => {
-    auth
+    auth()
       .signOut()
       .then(() => {
         setIslogin('');

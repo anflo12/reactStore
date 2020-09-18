@@ -1,9 +1,10 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
-import GenericList from '../components/GenericList';
+import GenericList from '../components/itemsProducts/GenericList';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import ProductsScreen from '../screens/products/ProductsScreen';
+import colors from '../assets/colors';
 
 const Home = createStackNavigator();
 const Profile = createStackNavigator();
@@ -15,7 +16,7 @@ const HomeStack = () => {
   return (
     <Home.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: '#FFA726'},
+        headerStyle: {backgroundColor: colors.header},
         headerTitleAlign: 'left',
       }}>
       <Home.Screen
@@ -26,8 +27,8 @@ const HomeStack = () => {
 
       <Home.Screen
         name="products"
-        component={GenericList}
-        options={{headerTitle: ' ', headerTintColor: 'white'}}
+        component={ProductsScreen}
+        options={{headerTitle: 'Productos', headerTintColor: 'white'}}
       />
     </Home.Navigator>
   );
@@ -37,7 +38,7 @@ const ProfileStack = () => {
   return (
     <Profile.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: '#FFA726'},
+        headerStyle: {backgroundColor: colors.header},
         headerTitleAlign: 'left',
       }}>
       <Profile.Screen
@@ -53,13 +54,13 @@ const ProductsStack = () => {
   return(
     <Products.Navigator
     screenOptions={{
-      headerStyle: {backgroundColor: '#FFA726'},
+      headerStyle: {backgroundColor: colors.header},
       headerTitleAlign: 'left',
     }}>
     <Products.Screen
       name="Products"
       component={ProductsScreen}
-      options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+      options={{ headerTitle:'products',headerTintColor: 'white'}}
     />
   </Products.Navigator>
   )
@@ -68,25 +69,25 @@ const MainStack = () => {
   return (
     <Main.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: '#FFA726'},
+        headerStyle: {backgroundColor:colors.header},
         headerTitleAlign: 'left',
       }}>
       <Main.Screen
         name="home"
         component={HomeStack}
-        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+        options={{headerTitle: 'Products', headerTintColor: 'white'}}
       />
 
       <Main.Screen
         name="profile"
         component={ProfileStack}
-        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+        options={{headerTitle: 'Perfil', headerTintColor: 'white'}}
       />
 
       <Main.Screen
         name="products"
         component={ProductsStack}
-        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+        options={{headerTitle: 'Productos', headerTintColor: 'white'}}
       />
     </Main.Navigator>
   );

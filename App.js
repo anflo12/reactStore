@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import auth  from '@react-native-firebase/auth';
 import 'react-native-gesture-handler';
-import CustomDrawer from './components/CustomDrawer';
+import CustomDrawer from './components/drawer/CustomDrawer';
 import Auth from './navigation/AuthNavigation';
 import MainStack from './navigation/MainNavigation';
 

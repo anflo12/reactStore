@@ -2,32 +2,13 @@ import React,{useState,useEffect} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {Card, Image, Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
-import colors from '../assets/colors';
+import colors from '../../assets/colors';
+import ItemsGeneric from './ItemsGeneric';
 
-export default function GenericList({ route, navigation }) {
+export default function GenericList({ route, navigation ,data}) {
 const [Products, setProducts] = useState([])
 
-  const _renderItems = (item, index) => {
-    let desc = item.price * 0.2;
-    let offer = item.price - desc;
-    return (
-      <Card containerStyle={{width: 175, margin: 2, padding: 0}}>
-        <Image source={{uri: item.photo}} style={styles.imageproduct} />
-        <Text style={styles.titleproduct}>{item.name}</Text>
-        <View style={{flexDirection: 'row', paddingLeft: 5}}>
-          <Text style={{fontWeight: 'bold'}}>Precio normal: </Text>
-          <Text>{item.price}</Text>
-        </View>
-        <View style={{flexDirection: 'row', paddingLeft: 5}}>
-          <Text style={{fontWeight: 'bold', color: 'red'}}>
-            Precio oferta:{' '}
-          </Text>
-          <Text style={{color: 'red'}}>{offer}</Text>
-        </View>
-        <Button title="Detalles" buttonStyle={styles.buttonDetails} />
-      </Card>
-    );
-  };
+  
 
 useEffect(() => {
 
@@ -47,9 +28,10 @@ useEffect(() => {
   return (
     <View>
       <FlatList
-        data={Products}
+        data={data}
+        style={{marginHorizontal:4.5}}
         numColumns={2}
-        renderItem={({item, index}) => _renderItems(item, index)}
+        renderItem={({item, index}) => <ItemsGeneric  item={item} index={index}/>}
         keyExtractor={(item, index) => index + ''}
       />
     </View>

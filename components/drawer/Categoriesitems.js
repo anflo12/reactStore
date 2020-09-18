@@ -3,7 +3,7 @@ import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore';
 
-export default function Categories({navigation}) {
+export default function Categoriesitems({navigation}) {
   const [Categories, setCategories] = useState([]);
   useEffect(() => {
     changeCategories();
