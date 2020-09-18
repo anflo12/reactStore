@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {Button, Card, Image, Input} from 'react-native-elements';
-import { auth } from '../../config/firebaseConfig';
+import  auth  from '@react-native-firebase/auth';
+
 
 export default function RecoveryPassword() {
   const [Email, setEmail] = useState('');
   const RecoveryPassword = () => {
-    auth
+    auth()
       .sendPasswordResetEmail(emailAddress)
       .then(function () {
         Alert.alert(

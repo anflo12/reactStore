@@ -9,6 +9,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import {Image} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
 import Carousel from 'react-native-snap-carousel';
 import colors from '../assets/colors';
@@ -72,19 +73,26 @@ export default function HomeScreen({navigation}) {
   ];
 
   const width = Dimensions.get('screen').width;
-  const _body = ({item, index}) => {
+  const _body = (item, index) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("products", { id: '001' })}>
-        <ImageBackground
-          source={{uri: item.image}}
-          style={{width: '101%', height: 165}}>
-          <View style={styles.containerCategories}>
-            <Text style={styles.textCategories}>{item.name}</Text>
-          </View>
-        </ImageBackground>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('products', {id: '001'})}>
+        <View
+          style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginHorizontal: 10,
+          }}>
+          <Image
+            source={{uri: item.image}}
+            style={{width: 105, height: 105, borderRadius: 60}}
+          />
+          <Text style={styles.textCategories}>{item.name}</Text>
+        </View>
       </TouchableOpacity>
     );
   };
+
   return (
     <View>
       <ScrollView>
@@ -100,13 +108,12 @@ export default function HomeScreen({navigation}) {
 
         <Text style={styles.title}>Categorias</Text>
 
-        <Carousel
+        <FlatList
           data={ENTRIES1}
-          itemWidth={width / 1.4}
-          itemHeight={2}
-          sliderWidth={width - 2}
-          sliderHeight={0}
-          renderItem={_body}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item, index}) => _body(item, index)}
+          keyExtractor={(item, index) => index + ''}
         />
         <Text style={styles.title2}>Productos en oferta</Text>
 
@@ -157,5 +164,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 'bold',
     fontSize: 22,
+    textAlign: 'center',
   },
 });

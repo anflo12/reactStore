@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { db } from '../../config/firebaseConfig';
+import firestore from '@react-native-firebase/firestore';
 
 export default function Categories({navigation}) {
   const [Categories, setCategories] = useState([]);
@@ -12,7 +12,7 @@ export default function Categories({navigation}) {
   const changeCategories = async() => {
    
 
-    db.collection('categories').onSnapshot((querySnapshot) => {
+    firestore().collection('categories').onSnapshot((querySnapshot) => {
       const docs = [];
 
       querySnapshot.forEach((doc) => {

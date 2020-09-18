@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../assets/colors';
-import { auth } from '../config/firebaseConfig';
+import  auth  from '@react-native-firebase/auth';
 import Categories from './home/Categories';
 
 export default function CustomDrawer(props) {
@@ -18,7 +18,7 @@ export default function CustomDrawer(props) {
 
   const changeStatusUser=()=>{
     
-    auth.onAuthStateChanged( (user)=> {
+    auth().onAuthStateChanged( (user)=> {
       if (user) {
         setUser(user);
         setIslogin(true);

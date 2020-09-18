@@ -2,9 +2,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 // Import navigation
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import auth  from '@react-native-firebase/auth';
 import 'react-native-gesture-handler';
 import CustomDrawer from './components/CustomDrawer';
-import { auth } from './config/firebaseConfig';
 import Auth from './navigation/AuthNavigation';
 import MainStack from './navigation/MainNavigation';
 
@@ -17,7 +17,7 @@ const App = () => {
   }, [isLogin]);
 
   const changeStatusUser = () => {
-    auth.onAuthStateChanged(function (user) {
+    auth().onAuthStateChanged(function (user) {
       if (user) {
         setIslogin(true);
       } else {

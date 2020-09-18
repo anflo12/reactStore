@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {CheckBox, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Button, Card, Image, Input} from 'react-native-elements';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Card, Image, Input } from 'react-native-elements';
+import  auth  from '@react-native-firebase/auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-community/async-storage';
-
 import colors from '../../assets/colors';
-import FIREBASE, {auth} from '../../config/firebaseConfig';
+
 
 export default function LoginScreen({navigation}) {
   const [icon, setIcon] = useState('eye');
@@ -21,7 +20,7 @@ export default function LoginScreen({navigation}) {
   };
 
   const onPressLogin = async () => {
-    auth
+    auth()
       .signInWithEmailAndPassword(Email, Password)
       .then(() => {
         alert('bienvenidos');

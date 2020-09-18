@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {Card, Image, Button} from 'react-native-elements';
+import firestore from '@react-native-firebase/firestore';
 import colors from '../assets/colors';
-import { db } from '../config/firebaseConfig';
 
 export default function GenericList({ route, navigation }) {
 const [Products, setProducts] = useState([])
@@ -32,7 +32,7 @@ const [Products, setProducts] = useState([])
 useEffect(() => {
 
     
-    db.collection('products').onSnapshot((querySnapshot) => {
+    firestore().collection('products').onSnapshot((querySnapshot) => {
       const docs = [];
 
       querySnapshot.forEach((doc) => {

@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Card, Image, Input} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, Card, Image, Input } from 'react-native-elements';
+import  auth  from '@react-native-firebase/auth';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
-import FIREBASE, {auth, db} from '../../config/firebaseConfig';
 
 export default function RegisterScreen({navigation}) {
   const [icon, setIcon] = useState('eye-slash');
@@ -23,24 +23,12 @@ export default function RegisterScreen({navigation}) {
       : (setIcon('eye-slash'), setHidePassword(true));
   };
 
-  const addUser = (id) => {
-    db.collection('users')
-      .doc(id)
-      .set({
-        id: id,
-        name: Name,
-        email: Email,
-        phone: Phone,
-      })
-      .then(() => {
-        console.log('User added!');
-      });
-  };
+  
   const onpresRegister = () => {
-    auth
+    auth()
       .createUserWithEmailAndPassword(Email.trim(), Password.trim())
       .then(() => {
-        addUser(auth.currentUser.uid);
+      
         navigation.navigate('home');
       })
       .catch((error) => {
