@@ -46,7 +46,7 @@ export default function RegisterScreen({navigation}) {
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <KeyboardAwareScrollView>
-        <Card containerStyle={{marginTop: 15, margin: 6}}>
+        <Card containerStyle={styles.card}>
           <Image
             source={require('../../assets/images/logo.png')}
             style={styles.styleLogo}
@@ -119,7 +119,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 45,
     alignSelf: 'center',
   },
-
+  card: {
+    marginTop: 15,
+    margin: 6,
+    borderRadius: 12,
+    elevation: 5,
+  },
   styleText: {
     color: colors.secondary,
     fontSize: 13,

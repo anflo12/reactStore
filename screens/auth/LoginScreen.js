@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button, Card, Image, Input } from 'react-native-elements';
-import  auth  from '@react-native-firebase/auth';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Card, Image, Input} from 'react-native-elements';
+import auth from '@react-native-firebase/auth';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
-
 
 export default function LoginScreen({navigation}) {
   const [icon, setIcon] = useState('eye');
@@ -33,7 +32,7 @@ export default function LoginScreen({navigation}) {
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <KeyboardAwareScrollView>
-        <Card containerStyle={{marginTop: 15, margin: 6}}>
+        <Card containerStyle={styles.card}>
           <Image
             source={require('../../assets/images/logo.png')}
             style={styles.styleLogo}
@@ -98,6 +97,13 @@ export default function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    marginTop: 15,
+    margin: 6,
+    borderRadius: 12,
+    elevation: 5,
+    marginBottom: 8,
+  },
   styleLogo: {
     width: 200,
     height: 160,

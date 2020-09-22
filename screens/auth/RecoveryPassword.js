@@ -23,7 +23,7 @@ export default function RecoveryPassword() {
   };
   return (
     <View style={{backgroundColor: '#dfe4ea', flex: 1}}>
-      <Card containerStyle={{marginTop: '35%'}}>
+      <Card containerStyle={styles.card}>
         <Image
           source={require('../../assets/images/logo.png')}
           style={styles.styleLogo}
@@ -46,6 +46,12 @@ export default function RecoveryPassword() {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    marginTop: 15,
+    margin: 6,
+    borderRadius: 12,
+    elevation: 5,
+  },
   styleLogo: {
     width: 200,
     height: 160,

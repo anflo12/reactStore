@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  Dimensions,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -10,8 +9,8 @@ import {
 } from 'react-native';
 import {Image} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
-import colors from '../assets/colors';
-import GenericList from '../components/itemsProducts/GenericList';
+import colors from '../../assets/colors';
+import GenericList from '../../components/itemsProducts/GenericList';
 
 export default function HomeScreen({navigation}) {
   const [Images, setImages] = useState([
@@ -46,42 +45,16 @@ export default function HomeScreen({navigation}) {
     {
       name: 'IPHONE 7 PLUS',
       image:
-        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
-      price: 120000,
-    },
-    {
-      name: 'IPHONE 7 PLUS',
-      image:
-        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
-      price: 120000,
-    },
-    {
-      name: 'IPHONE 7 PLUS',
-      image:
-        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
-      price: 120000,
-    },
-
-    {
-      name: 'IPHONE 7 PLUS',
-      image:
-        'https://falabella.scene7.com/is/image/FalabellaCO/3929421_1?wid=800&hei=800&qlt=70',
+        'https://mac-center.com/wp-content/uploads/2020/06/iPhone7NegroMate-1.jpg',
       price: 120000,
     },
   ];
 
-  const width = Dimensions.get('screen').width;
   const _body = (item, index) => {
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate('products', {id: '001'})}>
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginHorizontal: 8,
-          
-          }}>
+        <View style={styles.containerImage}>
           <Image
             source={{uri: item.image}}
             style={{width: 110, height: 110, borderRadius: 60}}
@@ -100,9 +73,7 @@ export default function HomeScreen({navigation}) {
           onCurrentImagePressed={(index) =>
             console.log(`image ${index} pressed`)
           }
-          currentImageEmitter={(index) =>
-            console.log(`current pos is: ${index}`)
-          }
+          
         />
 
         <Text style={styles.title}>Categorias</Text>
@@ -138,23 +109,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.secondary,
     marginTop: 30,
-    marginBottom:10,
+    marginBottom: 10,
     marginLeft: 8,
     textDecorationLine: 'underline',
-    
-    
   },
-  containerCategories: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: -10,
-    marginTop: '49%',
-    justifyContent: 'center',
+  containerImage: {
+    flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF80',
-    height: 40,
+    marginHorizontal: 8,
   },
 
   textCategories: {

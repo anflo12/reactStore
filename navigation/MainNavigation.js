@@ -1,17 +1,52 @@
-import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
-import GenericList from '../components/itemsProducts/GenericList';
-import ProfileScreen from '../screens/profile/ProfileScreen';
-import ProductsScreen from '../screens/products/ProductsScreen';
+import React from 'react';
 import colors from '../assets/colors';
+import LoginScreen from '../screens/auth/LoginScreen';
+import RecoveryPassword from '../screens/auth/RecoveryPassword';
+import RegisterScreen from '../screens/auth/RegisterScreen';
+import HomeScreen from '../screens/home/HomeScreen';
+import ProductsScreen from '../screens/products/ProductsScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 
 const Home = createStackNavigator();
 const Profile = createStackNavigator();
 
 const Main = createStackNavigator();
 const Products = createStackNavigator();
+const Auth = createStackNavigator();
 
+const AuthStack =()=>{
+  return(
+    <Auth.Navigator
+      screenOptions={{
+        headerStyle: {backgroundColor:colors.header},
+        headerTitleAlign: 'left',
+      }}
+      initialRouteName="login">
+      <Auth.Screen
+        name="login"
+        component={LoginScreen}
+        options={{headerTitle: ' Iniciar sesion ', headerTintColor: 'white'}}
+      />
+      <Auth.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{headerTitle: 'Registarse', headerTintColor: 'white'}}
+      />
+
+      <Auth.Screen
+        name="RecoveryPassword"
+        component={RecoveryPassword}
+        options={{
+          headerTitle: 'Recuperar contraseña',
+          headerTintColor: 'white',
+        }}
+      />
+
+     
+    </Auth.Navigator>
+  )
+}
 const HomeStack = () => {
   return (
     <Home.Navigator
@@ -25,11 +60,7 @@ const HomeStack = () => {
         options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
 
-      <Home.Screen
-        name="products"
-        component={ProductsScreen}
-        options={{headerTitle: 'Productos', headerTintColor: 'white'}}
-      />
+     
     </Home.Navigator>
   );
 };
@@ -51,31 +82,39 @@ const ProfileStack = () => {
 };
 
 const ProductsStack = () => {
-  return(
+  return (
     <Products.Navigator
-    screenOptions={{
-      headerStyle: {backgroundColor: colors.header},
-      headerTitleAlign: 'left',
-    }}>
-    <Products.Screen
-      name="Products"
-      component={ProductsScreen}
-      options={{ headerTitle:'products',headerTintColor: 'white'}}
-    />
-  </Products.Navigator>
-  )
+      screenOptions={{
+        headerStyle: {backgroundColor: colors.header},
+        headerTitleAlign: 'left',
+      }}>
+      <Products.Screen
+        name="Products"
+        component={ProductsScreen}
+        options={{headerTitle: 'products', headerTintColor: 'white'}}
+      />
+    </Products.Navigator>
+  );
 };
 const MainStack = () => {
   return (
     <Main.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor:colors.header},
+        headerStyle: {backgroundColor: colors.header},
         headerTitleAlign: 'left',
-      }}>
+      }}
+      initialRouteName='home'
+      >
+        
+        <Main.Screen
+        name="auth"
+        component={AuthStack}
+        options={{headerTitle: 'Products', headerTintColor: 'white'}}
+      />
       <Main.Screen
         name="home"
         component={HomeStack}
-        options={{headerTitle: 'Products', headerTintColor: 'white'}}
+        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
 
       <Main.Screen

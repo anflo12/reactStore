@@ -1,19 +1,19 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-// Import navigation
-import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import auth  from '@react-native-firebase/auth';
+import React, {useEffect, useState} from 'react';
+import auth from '@react-native-firebase/auth';
 import 'react-native-gesture-handler';
-import CustomDrawer from './components/drawer/CustomDrawer';
-import Auth from './navigation/AuthNavigation';
-import MainStack from './navigation/MainNavigation';
+import {Text, View} from 'react-native';
+import Boot from './navigation/Boot';
+import SplashScreen from './screens/SplashScreen';
 
-const Drawer = createDrawerNavigator();
 const App = () => {
   const [isLogin, setIslogin] = useState(false);
-
+  const [loading, setloading] = useState(false);
   useEffect(() => {
-    changeStatusUser();
+    const timer = setTimeout(() => {
+      changeStatusUser();
+      setloading(true);
+    }, 5000);
+    return () => clearTimeout(timer);
   }, [isLogin]);
 
   const changeStatusUser = () => {
@@ -25,22 +25,12 @@ const App = () => {
       }
     });
   };
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={(props) => <CustomDrawer {...props} />}
-        overlayColor="transparent"
-        drawerStyle={{marginTop: 57, width: 230}}>
-        {isLogin ? (
-          <Drawer.Screen name="main" component={MainStack} />
-        ) : (
-          <Drawer.Screen name="auth" component={Auth} />
-        )}
 
-        <Drawer.Screen name="login" component={Auth} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
+  if (!loading) {
+    return <SplashScreen />;
+  } else {
+    return <Boot isLogin={isLogin} />;
+  }
 };
 
 export default App;
