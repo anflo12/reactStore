@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../assets/colors';
 import Categories from './Categoriesitems';
 
- function CustomDrawer(props) {
+ export default function CustomDrawer(props) {
   const [isLogin, setIslogin] = useState(true);
   const [email, setemail] = useState('');
   const [User, setUser] = useState({});
@@ -46,7 +46,7 @@ import Categories from './Categoriesitems';
     <View style={{flex: 1, backgroundColor: colors.header}}>
       <DrawerContentScrollView>
         {isLogin ? (
-          <View style={{marginBottom: 40, backgroundColor: colors.background}}>
+          <View style={{marginBottom: 40,}}>
             <View style={styles.userImage}>
               <Text style={styles.initialStringName}>
                 {email.toUpperCase().substr(0, 1)}
@@ -80,7 +80,7 @@ import Categories from './Categoriesitems';
               <Icon name="user-alt" color={color} size={20} />
             )}
             label="Perfil"
-            onPress={() => {}}
+            onPress={() => props.navigation.navigate('profile')}
           />
           <DrawerItem
             style={{top: 5}}
@@ -98,9 +98,9 @@ import Categories from './Categoriesitems';
             <Icon name="sign-in-alt" color={color} size={20} />
           )}
           label="Iniciar sesion"
-          onPress={() => {
-            props.navigation.navigate('auth');
-          }}
+          onPress={() =>
+            props.navigation.navigate('auth')
+          }
         />
       )}
     </View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 100,
     marginHorizontal: 48,
-    backgroundColor: 'blue',
+    backgroundColor: colors.background,
   },
 
   initialStringName: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 70,
     textAlign: 'center',
 
-    color: 'white',
+    color: 'black',
   },
 });
 

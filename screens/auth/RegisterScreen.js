@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, Card, Image, Input } from 'react-native-elements';
-import  auth  from '@react-native-firebase/auth';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Button, Card, Image, Input} from 'react-native-elements';
+import auth from '@react-native-firebase/auth';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
+import firestore from '@react-native-firebase/firestore';
 
 export default function RegisterScreen({navigation}) {
   const [icon, setIcon] = useState('eye-slash');
@@ -15,7 +16,7 @@ export default function RegisterScreen({navigation}) {
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [ConfPassword, setConfPassword] = useState('');
-  const [Phone, setPhone] = useState(0);
+  const [Adress, setAdress] = useState(0);
 
   const _changeIcon = () => {
     icon == 'eye-slash'
@@ -23,12 +24,25 @@ export default function RegisterScreen({navigation}) {
       : (setIcon('eye-slash'), setHidePassword(true));
   };
 
-  
+  const addUser = (id) => {
+    const user = {
+      name:Name,
+      email:Email,
+      address:Adress
+    }
+    firestore()
+      .collection('users')
+      .doc(id)
+      .set(user)
+      .then(() => {
+        console.log('User added!');
+      });
+  };
   const onpresRegister = () => {
     auth()
       .createUserWithEmailAndPassword(Email.trim(), Password.trim())
       .then(() => {
-      
+        addUser(auth().currentUser.uid);
         navigation.navigate('home');
       })
       .catch((error) => {
@@ -83,11 +97,10 @@ export default function RegisterScreen({navigation}) {
             onChangeText={(value) => setConfPassword(value)}
           />
           <Input
-            label="Telefono"
+            label="Direccion"
             labelStyle={{color: colors.secondary}}
-            keyboardType={'number-pad'}
-            textContentType="telephoneNumber"
-            onChangeText={(value) => setPhone(value)}
+            keyboardType={'default'}
+            onChangeText={(value) => setAdress(value)}
           />
 
           <Button

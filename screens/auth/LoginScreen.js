@@ -8,7 +8,7 @@ import colors from '../../assets/colors';
 import {getInfouser} from '../../redux/actions/auth.action';
 import {connect} from 'react-redux';
 
-function LoginScreen({navigation,onGetInformation}) {
+export default function LoginScreen({navigation,onGetInformation}) {
   const [icon, setIcon] = useState('eye');
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ function LoginScreen({navigation,onGetInformation}) {
 
   const onPressLogin = async () => {
     auth()
-      .signInWithEmailAndPassword(Email, Password)
+      .signInWithEmailAndPassword(Email.trim(), Password.trim())
       .then(() => {
         alert('bienvenidos');
         navigation.navigate('home');
@@ -98,13 +98,6 @@ function LoginScreen({navigation,onGetInformation}) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onGetInformation: (id) => {
-      dispatch(getInfouser(id));
-    },
-  };
-};
 
 const styles = StyleSheet.create({
   card: {
@@ -119,6 +112,8 @@ const styles = StyleSheet.create({
     height: 160,
     alignSelf: 'center',
     marginHorizontal: 40,
+    alignItems:'center',
+    justifyContent:'center'
   },
   divider: {
     textAlign: 'center',
@@ -152,4 +147,3 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null,mapDispatchToProps)(LoginScreen);

@@ -5,6 +5,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RecoveryPassword from '../screens/auth/RecoveryPassword';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import HomeScreen from '../screens/home/HomeScreen';
+import DetailProducts from '../screens/products/DetailProducts';
 import ProductsScreen from '../screens/products/ProductsScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 
@@ -15,11 +16,11 @@ const Main = createStackNavigator();
 const Products = createStackNavigator();
 const Auth = createStackNavigator();
 
-const AuthStack =()=>{
-  return(
+export const AuthStack = () => {
+  return (
     <Auth.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor:colors.header},
+        headerStyle: {backgroundColor: colors.header},
         headerTitleAlign: 'left',
       }}
       initialRouteName="login">
@@ -42,12 +43,10 @@ const AuthStack =()=>{
           headerTintColor: 'white',
         }}
       />
-
-     
     </Auth.Navigator>
-  )
-}
-const HomeStack = () => {
+  );
+};
+export const HomeStack = () => {
   return (
     <Home.Navigator
       screenOptions={{
@@ -60,12 +59,16 @@ const HomeStack = () => {
         options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
       />
 
-     
+      <Home.Screen
+        name="detailProduct"
+        component={DetailProducts}
+        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
+      /> 
     </Home.Navigator>
   );
 };
 
-const ProfileStack = () => {
+export const ProfileStack = () => {
   return (
     <Profile.Navigator
       screenOptions={{
@@ -81,7 +84,7 @@ const ProfileStack = () => {
   );
 };
 
-const ProductsStack = () => {
+export const ProductsStack = () => {
   return (
     <Products.Navigator
       screenOptions={{
@@ -93,43 +96,12 @@ const ProductsStack = () => {
         component={ProductsScreen}
         options={{headerTitle: 'products', headerTintColor: 'white'}}
       />
+
+      <Products.Screen
+        name="DetailProduct"
+        component={DetailProducts}
+        options={{headerTitle: 'detail', headerTintColor: 'white'}}
+      />
     </Products.Navigator>
   );
 };
-const MainStack = () => {
-  return (
-    <Main.Navigator
-      screenOptions={{
-        headerStyle: {backgroundColor: colors.header},
-        headerTitleAlign: 'left',
-      }}
-      initialRouteName='home'
-      >
-        
-        <Main.Screen
-        name="auth"
-        component={AuthStack}
-        options={{headerTitle: 'Products', headerTintColor: 'white'}}
-      />
-      <Main.Screen
-        name="home"
-        component={HomeStack}
-        options={{headerTitle: 'Inicio', headerTintColor: 'white'}}
-      />
-
-      <Main.Screen
-        name="profile"
-        component={ProfileStack}
-        options={{headerTitle: 'Perfil', headerTintColor: 'white'}}
-      />
-
-      <Main.Screen
-        name="products"
-        component={ProductsStack}
-        options={{headerTitle: 'Productos', headerTintColor: 'white'}}
-      />
-    </Main.Navigator>
-  );
-};
-
-export default MainStack;

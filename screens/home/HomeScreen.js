@@ -35,7 +35,7 @@ export default function HomeScreen({navigation}) {
         'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSR8Dlhi_2tpAQljuu4O6rr1p50D-1SaFpoUl8mUeZ80fnBUJz5&usqp=CAU',
     },
     {
-      name: 'Eletrodomesticos',
+      name: 'Electrodomesticos',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQe6TJmIMxlh4hzlOwktBdaqnSSkTZzvqztwIXwVNB1TLbVg36Q&usqp=CAU',
     },
@@ -47,6 +47,22 @@ export default function HomeScreen({navigation}) {
       image:
         'https://mac-center.com/wp-content/uploads/2020/06/iPhone7NegroMate-1.jpg',
       price: 120000,
+      details:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
+    },
+
+    {
+      name: 'nevera plus',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLkWk4XcMRgfFHl1w4IfsiQlFj56YcS0ThjA&usqp=CAU',
+      price: 120000,
+    },
+
+    {
+      name: 'Xbox One',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQnRa_5zTJEHlDvyq0JJUOF9vgdbSIeMtoCFw&usqp=CAU',
+      price: 140000,
     },
   ];
 
@@ -73,7 +89,6 @@ export default function HomeScreen({navigation}) {
           onCurrentImagePressed={(index) =>
             console.log(`image ${index} pressed`)
           }
-          
         />
 
         <Text style={styles.title}>Categorias</Text>
