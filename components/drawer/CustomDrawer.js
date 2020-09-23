@@ -6,8 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../assets/colors';
 import Categories from './Categoriesitems';
 
-
-export default function CustomDrawer(props) {
+ function CustomDrawer(props) {
   const [isLogin, setIslogin] = useState(true);
   const [email, setemail] = useState('');
   const [User, setUser] = useState({});
@@ -36,7 +35,7 @@ export default function CustomDrawer(props) {
       .signOut()
       .then(() => {
         setIslogin('');
-        props.navigation.navigate('login');
+        props.navigation.navigate('auth');
       })
       .catch((err) => {
         console.log(err);
@@ -100,7 +99,7 @@ export default function CustomDrawer(props) {
           )}
           label="Iniciar sesion"
           onPress={() => {
-            props.navigation.navigate('login');
+            props.navigation.navigate('auth');
           }}
         />
       )}
@@ -125,3 +124,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+

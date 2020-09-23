@@ -1,9 +1,17 @@
-import * as types  from "../types";
+import * as types from '../types';
+import firestore from '@react-native-firebase/firestore';
 
-
-export const saveInfoUser =(user) =>{
-    return{
-        type:types.SAVE_INFO_USER,
-        payload:user
-    }
-}
+export const getInfouser = (user) => {
+  return (dispatch) => {
+    firestore()
+      .collection('users')
+      .doc(id)
+      .get()
+      .then((user) => {
+        dispatch({
+          type: types.SAVE_INFO_USER,
+          payload: user,
+        });
+      });
+  };
+};

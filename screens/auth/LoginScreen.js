@@ -5,8 +5,10 @@ import auth from '@react-native-firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
+import {getInfouser} from '../../redux/actions/auth.action';
+import {connect} from 'react-redux';
 
-export default function LoginScreen({navigation}) {
+function LoginScreen({navigation,onGetInformation}) {
   const [icon, setIcon] = useState('eye');
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -96,6 +98,14 @@ export default function LoginScreen({navigation}) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetInformation: (id) => {
+      dispatch(getInfouser(id));
+    },
+  };
+};
+
 const styles = StyleSheet.create({
   card: {
     marginTop: 15,
@@ -140,3 +150,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 });
+
+
+export default connect(null,mapDispatchToProps)(LoginScreen);
