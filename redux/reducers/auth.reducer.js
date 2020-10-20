@@ -1,7 +1,7 @@
-import * as types  from "../types";
+import * as types from '../types';
 
 const initialState = {
-  data: [],
+  user: [],
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -9,10 +9,10 @@ export const authReducer = (state = initialState, action) => {
     case types.SAVE_INFO_USER:
       return {
         ...state,
-        data: action.payload,
+        user: action.payload,
       };
 
     default:
-     state
+      return state;
   }
 };

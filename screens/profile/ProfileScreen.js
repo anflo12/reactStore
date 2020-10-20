@@ -1,21 +1,58 @@
+import auth from '@react-native-firebase/auth';
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Button, Card, Image, Input} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {connect} from 'react-redux';
 import colors from '../../assets/colors';
+import {updateInfoUser} from '../../redux/actions/auth.action';
+import ImagePicker from 'react-native-image-picker';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+function ProfileScreen({userInfo, onSetInformation}) {
+  const {name, address, email, photo} = userInfo;
 
-export default function ProfileScreen() {
-  const [Name, setName] = useState('');
-  const [Email, setEmail] = useState('');
+  console.log(photo);
+  const [Name, setName] = useState(name);
+  const [Email, setEmail] = useState(email);
+  const [Address, setAddress] = useState(address);
   const [Password, setPassword] = useState('');
   const [edit, setedit] = useState(false);
+  const [Photo, setPhoto] = useState(photo);
+  const updateInfo = () => {
+    const user = {
+      name: Name,
+      email: Email,
+      address: Address,
+      photo: Photo,
+    };
 
-  const Editing = () => {
-    if (!edit) {
-      setedit(true);
-    } else {
-      setedit(false);
+    const id = auth().currentUser.uid;
+    onSetInformation(id, user);
+    setedit(false);
+  };
+
+  const chooseImage = () => {
+    let options = {
+      title: 'Seleccione o tome una foto',
+
+      mediaType: 'photo',
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+
+    if (edit) {
+      ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else {
+          setPhoto(response.uri);
+        }
+      });
     }
   };
   return (
@@ -23,13 +60,27 @@ export default function ProfileScreen() {
       <KeyboardAwareScrollView>
         <Card containerStyle={styles.card}>
           <View style={styles.viewImage}>
-            <Image
-              style={styles.imageProfile}
-              source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/sokaniwaal/128.jpg',
-              }}
-            />
+            <View>
+              <Image
+                style={styles.imageProfile}
+                source={{
+                  uri: Photo,
+                }}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[styles.imageProfile, styles.overlay]}
+              onPress={chooseImage}>
+              <View style={styles.btnProfileImage}>
+                <FontAwesome5
+                  name={'edit'}
+                  solid
+                  size={25}
+                  style={{marginVertical: 12}}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
 
           <Input
@@ -40,7 +91,7 @@ export default function ProfileScreen() {
               height: 8,
               color: !edit ? '#9e9e9e' : null,
             }}
-            defaultValue="312323213123"
+            defaultValue={Name}
             onChangeText={(value) => setName(value)}
           />
           <Input
@@ -51,7 +102,7 @@ export default function ProfileScreen() {
               height: 8,
               color: !edit ? '#9e9e9e' : null,
             }}
-            defaultValue="312323213123"
+            defaultValue={Email}
             onChangeText={(value) => setEmail(value)}
           />
           <Input
@@ -61,6 +112,7 @@ export default function ProfileScreen() {
               height: 8,
               color: !edit ? '#9e9e9e' : null,
             }}
+            secureTextEntry={true}
             defaultValue="312323213123"
             editable={false}
             labelStyle={{color: colors.secondary}}
@@ -75,23 +127,23 @@ export default function ProfileScreen() {
               height: 8,
               color: !edit ? '#9e9e9e' : null,
             }}
-            defaultValue="calle 34 # 45 12 "
+            defaultValue={Address}
             keyboardType={'default'}
             editable={edit}
-            onChangeText={(value) => setPhone(value)}
+            onChangeText={(value) => setAddress(value)}
           />
 
           {edit ? (
             <Button
               title="Actualizar"
               buttonStyle={styles.btnProfile}
-              onPress={Editing}
+              onPress={updateInfo}
             />
           ) : (
             <Button
               title="Editar Informacion"
               buttonStyle={styles.btnProfile}
-              onPress={Editing}
+              onPress={() => setedit(true)}
             />
           )}
         </Card>
@@ -100,6 +152,21 @@ export default function ProfileScreen() {
   );
 }
 
+const mapStateToprops = (state) => {
+  return {
+    userInfo: state.auth.user,
+  };
+};
+
+const mapDispacthToProps = (dispatch) => {
+  return {
+    onSetInformation: (id, user) => {
+      dispatch(updateInfoUser(id, user));
+    },
+  };
+};
+
+export default connect(mapStateToprops, mapDispacthToProps)(ProfileScreen);
 const styles = StyleSheet.create({
   card: {
     marginTop: 15,
@@ -122,5 +189,22 @@ const styles = StyleSheet.create({
   btnProfile: {
     backgroundColor: colors.primary,
     borderRadius: 8,
+  },
+
+  btnProfileImage: {
+    opacity: 0.5,
+    backgroundColor: colors.background,
+
+    width: 120,
+    borderBottomRightRadius: 120,
+    borderBottomLeftRadius: 120,
+    alignItems: 'center',
+    marginBottom: 0,
+  },
+  overlay: {
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 12,
   },
 });

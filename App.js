@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
+import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import {Text, View} from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 import Boot from './navigation/Boot';
+import { persistor, store } from './redux/store';
 import SplashScreen from './screens/SplashScreen';
 
 const App = () => {
@@ -29,7 +31,13 @@ const App = () => {
   if (!loading) {
     return <SplashScreen />;
   } else {
-    return <Boot isLogin={isLogin} />;
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <Boot isLogin={isLogin} />
+        </PersistGate>
+      </Provider>
+    );
   }
 };
 

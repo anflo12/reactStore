@@ -7,8 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors';
 import {getInfouser} from '../../redux/actions/auth.action';
 import {connect} from 'react-redux';
-
-export default function LoginScreen({navigation,onGetInformation}) {
+ function LoginScreen({navigation,onGetInformation}) {
   const [icon, setIcon] = useState('eye');
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -24,11 +23,13 @@ export default function LoginScreen({navigation,onGetInformation}) {
     auth()
       .signInWithEmailAndPassword(Email.trim(), Password.trim())
       .then(() => {
-        alert('bienvenidos');
+        const id = auth().currentUser.uid
+        onGetInformation(id)
         navigation.navigate('home');
       })
       .catch((error) => {
         console.log(error);
+        alert(error)
       });
   };
   return (
@@ -97,6 +98,14 @@ export default function LoginScreen({navigation,onGetInformation}) {
     </View>
   );
 }
+
+const mapDispacthToProps=dispatch=>{
+  return ({
+    onGetInformation: (id)=>{dispatch(getInfouser(id))}
+  })
+}
+
+export default connect(null,mapDispacthToProps)(LoginScreen)
 
 
 const styles = StyleSheet.create({

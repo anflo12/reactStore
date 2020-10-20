@@ -4,5 +4,5 @@ import { authReducer } from "./auth.reducer";
 
 
 export const reducer= combineReducers({
-    authReducer
+    auth:authReducer,
 })
